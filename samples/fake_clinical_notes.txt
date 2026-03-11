@@ -1,0 +1,28 @@
+Fake Clinical Note 1
+Patient: Fictional Person 1, age 57
+Chief complaint: Dry cough, mild fever, fatigue for 3 days.
+History: Hypertension controlled on lisinopril.
+Assessment: Likely viral upper respiratory infection.
+Plan: Hydration, rest, monitor BP at home, return if chest pain or shortness of breath.
+Follow-up: 1 week if symptoms persist.
+
+---
+
+Fake Clinical Note 2
+Patient: Fictional Person 2, age 41
+Chief complaint: Lower back pain after lifting heavy boxes.
+Exam: Lumbar tenderness, no neurologic deficits.
+Assessment: Muscular strain.
+Plan: Start ibuprofen as needed, gentle stretching, referral to physiotherapy.
+Risk advice: Seek urgent care for leg weakness, numbness, or bladder/bowel changes.
+Follow-up: 2 weeks.
+
+---
+
+Fake Clinical Note 3
+Patient: Fictional Person 3, age 68
+Visit: Diabetes review.
+Findings: Elevated HbA1c; reports missed metformin doses.
+Assessment: Suboptimal glycemic control.
+Plan: Medication adherence counseling, glucose log, nurse educator referral.
+Follow-up: 4 weeks with glucose readings.

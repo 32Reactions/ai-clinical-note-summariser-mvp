@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clinical Note Summariser (MVP)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Clinical Note Summariser</h1>
+      <p class="subtitle">
+        Paste a fictional clinical note below and click <strong>Summarise</strong>.
+      </p>
+
+      <label for="noteInput">Clinical note text</label>
+      <textarea
+        id="noteInput"
+        placeholder="Example: Patient reports 3 days of dry cough..."
+      ></textarea>
+
+      <div class="actions-row">
+        <button id="summariseBtn">Summarise</button>
+        <button id="loadSampleBtn" class="secondary">Load fake sample</button>
+      </div>
+
+      <p id="status" class="status"></p>
+
+      <section id="result" class="result hidden">
+        <h2>Structured Summary</h2>
+
+        <article>
+          <h3>Summary</h3>
+          <p id="summaryText"></p>
+        </article>
+
+        <article>
+          <h3>Key Issues</h3>
+          <ul id="issuesList"></ul>
+        </article>
+
+        <article>
+          <h3>Actions</h3>
+          <ul id="actionsList"></ul>
+        </article>
+
+        <article>
+          <h3>Risks</h3>
+          <ul id="risksList"></ul>
+        </article>
+
+        <article>
+          <h3>Suggested Follow-up</h3>
+          <ul id="followupList"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

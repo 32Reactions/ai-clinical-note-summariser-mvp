@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Valentine Story</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@600;700;800&display=swap");
+
+      :root {
+        --bg-a: #f7edf2;
+        --bg-b: #f3dce9;
+        --card: #fff9fc;
+        --pink: #e63889;
+        --pink-dark: #cc2b79;
+        --ink: #435064;
+        --yes: #2dc56f;
+        --no: #9aa6b5;
+        --shadow: 0 18px 35px rgba(82, 50, 66, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Nunito", "Trebuchet MS", sans-serif;
+        overflow: hidden;
+        background: radial-gradient(circle at 20% 12%, #ffffff 0%, transparent 55%),
+          linear-gradient(135deg, var(--bg-a) 0%, var(--bg-b) 100%);
+        color: var(--ink);
+      }
+
+      .scene {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+
+      .float-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .floater {
+        position: absolute;
+        top: -12vh;
+        font-size: clamp(18px, 2.2vw, 36px);
+        filter: drop-shadow(0 4px 5px rgba(122, 38, 70, 0.2));
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        animation-name: driftDown;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes driftDown {
+        0% {
+          transform: translate3d(var(--x-start), -14vh, 0) rotate(0deg) scale(var(--scale));
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.95;
+        }
+        100% {
+          transform: translate3d(var(--x-end), 112vh, 0) rotate(360deg) scale(var(--scale));
+          opacity: 0.95;
+        }
+      }
+
+      .card {
+        width: min(90vw, 620px);
+        background: var(--card);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+        padding: 38px 28px 34px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        animation: cardIn 0.35s ease;
+      }
+
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .line {
+        margin: 0;
+        color: var(--pink-dark);
+        font-size: clamp(2rem, 4.8vw, 3.8rem);
+        font-weight: 800;
+        line-height: 1.05;
+      }
+
+      .line.script {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(3.4rem, 8.4vw, 7.2rem);
+        font-weight: 400;
+        line-height: 0.95;
+        color: var(--pink-dark);
+      }
+
+      .heart-main {
+        font-size: clamp(44px, 8.4vw, 92px);
+        margin: 0 0 16px;
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
+      }
+
+      .sub {
+        margin: 18px 0 20px;
+        font-size: clamp(1.2rem, 2.6vw, 2.3rem);
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .btn {
+        border: none;
+        border-radius: 999px;
+        font-family: "Nunito", "Trebuchet MS", sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+      }
+
+      .next-btn {
+        padding: 15px 44px;
+        font-size: clamp(1.1rem, 2vw, 1.8rem);
+        color: #fff;
+        background: linear-gradient(140deg, #f04ea6, #e63889 60%, #d92e7a);
+        box-shadow: 0 10px 20px rgba(224, 49, 122, 0.3), inset 0 0 0 4px rgba(255, 255, 255, 0.28);
+        transition: transform 0.2s ease;
+      }
+
+      .next-btn:hover {
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      .question-wrap {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        width: min(94vw, 760px);
+      }
+
+      .actions {
+        position: relative;
+        width: min(96vw, 840px);
+        margin: 18px auto 0;
+        min-height: 220px;
+      }
+
+      .yes-btn,
+      .no-btn {
+        min-width: 172px;
+        padding: 20px 34px;
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+        color: #fff;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        will-change: transform, left, top;
+      }
+
+      .yes-btn {
+        background: var(--yes);
+        box-shadow: 0 10px 22px rgba(45, 197, 111, 0.3), inset 0 0 0 6px rgba(255, 255, 255, 0.2);
+        position: absolute;
+        left: 24%;
+        top: 32px;
+      }
+
+      .no-btn {
+        background: var(--no);
+        box-shadow: 0 10px 22px rgba(89, 103, 122, 0.2), inset 0 0 0 6px rgba(255, 255, 255, 0.2);
+        position: absolute;
+        left: 56%;
+        top: 32px;
+      }
+
+      .signature {
+        position: fixed;
+        left: 50%;
+        bottom: 14px;
+        transform: translateX(-50%);
+        z-index: 4;
+        background: rgba(255, 255, 255, 0.72);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 0.9rem;
+        color: #7f5064;
+        backdrop-filter: blur(3px);
+      }
+
+      .signature strong {
+        color: #cf2f79;
+      }
+
+      .result {
+        margin-top: 22px;
+        font-size: clamp(1.35rem, 3vw, 2rem);
+        color: var(--pink-dark);
+        font-weight: 800;
+      }
+
+      .celebration-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+
+      .fireworks-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .confetti-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .confetti {
+        position: absolute;
+        top: -12vh;
+        width: 12px;
+        height: 16px;
+        border-radius: 2px;
+        opacity: 0.95;
+        animation: confettiFall linear forwards;
+        transform: rotate(var(--rot));
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translate3d(0, -12vh, 0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate3d(var(--drift), 120vh, 0) rotate(760deg);
+          opacity: 1;
+        }
+      }
+
+      .celebration-card {
+        width: min(92vw, 860px);
+        border-radius: 34px;
+        background: rgba(255, 248, 252, 0.9);
+        border: 5px solid rgba(246, 126, 184, 0.75);
+        box-shadow: 0 24px 52px rgba(103, 44, 74, 0.2);
+        padding: 34px 26px 30px;
+        text-align: center;
+        position: relative;
+        z-index: 6;
+        backdrop-filter: blur(4px);
+        animation: cardIn 0.45s ease;
+      }
+
+      .celebration-top {
+        margin: 0;
+        font-size: clamp(2.2rem, 6.2vw, 4.1rem);
+      }
+
+      .celebration-title {
+        margin: 4px 0 8px;
+        font-family: "Great Vibes", cursive;
+        color: var(--pink-dark);
+        font-weight: 400;
+        font-size: clamp(4rem, 10.8vw, 8.8rem);
+        line-height: 0.92;
+      }
+
+      .celebration-text {
+        margin: 10px auto;
+        max-width: 90%;
+        font-size: clamp(1.3rem, 3vw, 2.3rem);
+        line-height: 1.25;
+      }
+
+      .celebration-note {
+        margin: 18px 0 0;
+        font-size: clamp(1rem, 2.1vw, 1.6rem);
+        color: #7a8b9d;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 680px) {
+        .card {
+          width: min(93vw, 540px);
+          padding: 28px 18px 24px;
+        }
+
+        .actions {
+          min-height: 280px;
+        }
+
+        .yes-btn,
+        .no-btn {
+          min-width: 134px;
+          padding: 16px 24px;
+          font-size: clamp(1.4rem, 7vw, 2rem);
+        }
+
+        .yes-btn {
+          left: 12%;
+        }
+
+        .no-btn {
+          left: 58%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="scene">
+      <div class="float-layer" id="floatLayer" aria-hidden="true"></div>
+
+      <section class="card" id="storyCard">
+        <h1 class="line" id="storyText">Hey Beautiful...</h1>
+        <button class="btn next-btn" id="nextBtn">Click Me</button>
+      </section>
+
+      <section class="question-wrap hidden" id="questionScene">
+        <div class="heart-main">❤️</div>
+        <h2 class="line script">Will you be my<br />Valentine?</h2>
+        <p class="sub">(I promise to buy you chocolate 🍫)</p>
+
+        <div class="actions" id="actionsArea">
+          <button class="btn yes-btn" id="yesBtn">YES!</button>
+          <button class="btn no-btn" id="noBtn">No</button>
+        </div>
+
+        <div class="result hidden" id="resultText">You said YES. Best day ever.</div>
+      </section>
+
+      <section class="celebration-overlay hidden" id="celebrationScene">
+        <canvas class="fireworks-canvas" id="fireworksCanvas"></canvas>
+        <div class="confetti-layer" id="confettiLayer"></div>
+        <div class="celebration-card">
+          <p class="celebration-top">🥰💖🎉</p>
+          <h3 class="celebration-title">She said YES!</h3>
+          <p class="celebration-text">You just made me the happiest person in the world.<br />I love you! ❤️</p>
+          <p class="celebration-note">Screenshot this and send it to me!</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="signature">With Love from <strong>Olumide and The32Reactions</strong></div>
+
+    <script>
+      const storyLines = [
+        "Hey Beautiful...",
+        "We've made so many memories...",
+        "You make me smile every single day...",
+        "So I have a question..."
+      ];
+
+      const emojiSets = [
+        ["❤️"],
+        ["❤️", "🌞"],
+        ["❤️", "🌞", "🌸"],
+        ["❤️", "🌞", "🌸"],
+        ["❤️", "🌞", "🌸"]
+      ];
+
+      const floatLayer = document.getElementById("floatLayer");
+      const storyCard = document.getElementById("storyCard");
+      const storyText = document.getElementById("storyText");
+      const nextBtn = document.getElementById("nextBtn");
+      const questionScene = document.getElementById("questionScene");
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn = document.getElementById("noBtn");
+      const actionsArea = document.getElementById("actionsArea");
+      const resultText = document.getElementById("resultText");
+      const celebrationScene = document.getElementById("celebrationScene");
+      const confettiLayer = document.getElementById("confettiLayer");
+      const fireworksCanvas = document.getElementById("fireworksCanvas");
+      const fireworksCtx = fireworksCanvas.getContext("2d");
+
+      let sceneIndex = 0;
+      let noClicks = 0;
+      let yesScale = 1;
+      let celebrationStarted = false;
+      let fireworkParticles = [];
+      let fireworkFrameId = null;
+      let fireworkTimerId = null;
+
+      function randomRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function resizeFireworksCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        fireworksCanvas.width = Math.floor(window.innerWidth * dpr);
+        fireworksCanvas.height = Math.floor(window.innerHeight * dpr);
+        fireworksCanvas.style.width = `${window.innerWidth}px`;
+        fireworksCanvas.style.height = `${window.innerHeight}px`;
+        fireworksCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function buildFloaters(emojis) {
+        floatLayer.innerHTML = "";
+        const count = Math.max(24, Math.min(46, emojis.length * 13));
+
+        for (let i = 0; i < count; i += 1) {
+          const floater = document.createElement("span");
+          floater.className = "floater";
+          floater.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          floater.style.left = `${randomRange(0, 100)}vw`;
+          floater.style.setProperty("--x-start", `${randomRange(-10, 10)}vw`);
+          floater.style.setProperty("--x-end", `${randomRange(-15, 15)}vw`);
+          floater.style.setProperty("--scale", `${randomRange(0.86, 1.18)}`);
+          floater.style.animationDuration = `${randomRange(9, 17)}s`;
+          floater.style.animationDelay = `${randomRange(-16, 0)}s`;
+          floater.style.opacity = `${randomRange(0.76, 0.98)}`;
+          floatLayer.appendChild(floater);
+        }
+      }
+
+      function setScene(index) {
+        buildFloaters(emojiSets[index]);
+
+        if (index < 4) {
+          storyCard.classList.remove("hidden");
+          questionScene.classList.add("hidden");
+          storyText.textContent = storyLines[index];
+          return;
+        }
+
+        storyCard.classList.add("hidden");
+        questionScene.classList.remove("hidden");
+      }
+
+      function randomPositionInActionsArea(element) {
+        const areaRect = actionsArea.getBoundingClientRect();
+        const btnRect = element.getBoundingClientRect();
+        const maxX = Math.max(20, areaRect.width - btnRect.width - 20);
+        const maxY = Math.max(20, areaRect.height - btnRect.height - 12);
+        const x = randomRange(8, maxX);
+        const y = randomRange(8, maxY);
+        element.style.left = `${x}px`;
+        element.style.top = `${y}px`;
+      }
+
+      function updateYesScale() {
+        yesBtn.style.transform = `scale(${yesScale})`;
+      }
+
+      function createConfettiBurst() {
+        const confettiColors = ["#f36c8f", "#ffd6ea", "#fb7185", "#fda4af", "#f9a8d4", "#fecdd3"];
+        confettiLayer.innerHTML = "";
+
+        for (let i = 0; i < 260; i += 1) {
+          const piece = document.createElement("span");
+          piece.className = "confetti";
+          piece.style.left = `${randomRange(0, 100)}vw`;
+          piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+          piece.style.width = `${randomRange(7, 14)}px`;
+          piece.style.height = `${randomRange(9, 20)}px`;
+          piece.style.setProperty("--rot", `${randomRange(0, 360)}deg`);
+          piece.style.setProperty("--drift", `${randomRange(-160, 160)}px`);
+          piece.style.animationDuration = `${randomRange(2.7, 5.1)}s`;
+          piece.style.animationDelay = `${randomRange(0, 0.8)}s`;
+          confettiLayer.appendChild(piece);
+        }
+      }
+
+      function spawnFireworkBurst() {
+        const x = randomRange(window.innerWidth * 0.15, window.innerWidth * 0.85);
+        const y = randomRange(window.innerHeight * 0.12, window.innerHeight * 0.62);
+        const hue = randomRange(332, 360);
+        const amount = Math.floor(randomRange(40, 62));
+
+        for (let i = 0; i < amount; i += 1) {
+          const angle = (Math.PI * 2 * i) / amount + randomRange(-0.08, 0.08);
+          const speed = randomRange(1.4, 4.5);
+          fireworkParticles.push({
+            x,
+            y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: randomRange(58, 108),
+            maxLife: randomRange(58, 108),
+            size: randomRange(1.2, 3.4),
+            color: `hsl(${hue + randomRange(-16, 16)}deg 94% 66%)`
+          });
+        }
+      }
+
+      function animateFireworks() {
+        fireworksCtx.fillStyle = "rgba(247, 237, 242, 0.20)";
+        fireworksCtx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+        for (let i = fireworkParticles.length - 1; i >= 0; i -= 1) {
+          const p = fireworkParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.024;
+          p.vx *= 0.993;
+          p.vy *= 0.992;
+          p.life -= 1;
+
+          if (p.life <= 0) {
+            fireworkParticles.splice(i, 1);
+            continue;
+          }
+
+          fireworksCtx.globalAlpha = Math.max(0.06, p.life / p.maxLife);
+          fireworksCtx.fillStyle = p.color;
+          fireworksCtx.beginPath();
+          fireworksCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          fireworksCtx.fill();
+        }
+
+        fireworksCtx.globalAlpha = 1;
+        fireworkFrameId = window.requestAnimationFrame(animateFireworks);
+      }
+
+      function startCelebrationEffects() {
+        if (celebrationStarted) {
+          return;
+        }
+
+        celebrationStarted = true;
+        createConfettiBurst();
+        resizeFireworksCanvas();
+        spawnFireworkBurst();
+        spawnFireworkBurst();
+        animateFireworks();
+        fireworkTimerId = window.setInterval(spawnFireworkBurst, 560);
+      }
+
+      function handleNoAttempt(event) {
+        event.preventDefault();
+        noClicks += 1;
+        yesScale += 0.34;
+        updateYesScale();
+
+        if (noClicks >= 3) {
+          noBtn.classList.add("hidden");
+          yesBtn.style.left = "50%";
+          yesBtn.style.top = "72px";
+          yesBtn.style.transform = "translateX(-50%) scale(2.35)";
+          yesBtn.textContent = "YES!";
+          return;
+        }
+
+        randomPositionInActionsArea(noBtn);
+      }
+
+      nextBtn.addEventListener("click", () => {
+        sceneIndex += 1;
+        setScene(sceneIndex);
+      });
+
+      noBtn.addEventListener("click", (event) => {
+        if (sceneIndex === 4) {
+          handleNoAttempt(event);
+        }
+      });
+
+      yesBtn.addEventListener("click", () => {
+        resultText.classList.remove("hidden");
+        questionScene.classList.add("hidden");
+        celebrationScene.classList.remove("hidden");
+        buildFloaters(["❤️", "🌞", "🌸"]);
+        startCelebrationEffects();
+      });
+
+      window.addEventListener("resize", () => {
+        if (celebrationStarted) {
+          resizeFireworksCanvas();
+        }
+      });
+
+      setScene(sceneIndex);
+    </script>
+  </body>
+</html>
