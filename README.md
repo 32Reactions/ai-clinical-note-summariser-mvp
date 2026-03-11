@@ -105,6 +105,27 @@ This structure was chosen because it mirrors how clinicians often review documen
 
 ---
 
+## System Flow
+
+The diagram below shows how the application processes a clinical note.
+
+```mermaid
+flowchart LR
+
+A[User pastes clinical note] --> B[Frontend UI<br>HTML / JS]
+B --> C[Flask Backend API<br>/api/summarise]
+C --> D{AI Available?}
+
+D -->|Yes| E[OpenAI API summarisation]
+D -->|No| F[Local fallback summariser]
+
+E --> G[Structured output]
+F --> G
+
+G --> H[Displayed in UI<br>Summary / Issues / Actions / Risks / Follow-up]
+
+---
+
 # Example Workflow
 
 1. User pastes a clinical note into the text area
@@ -220,4 +241,4 @@ This project was created to explore:
 - product thinking in healthcare tooling
 - building and shipping small prototypes
 
-'''
+"""
