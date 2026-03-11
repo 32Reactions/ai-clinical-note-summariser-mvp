@@ -111,18 +111,15 @@ The diagram below shows how the application processes a clinical note.
 
 ```mermaid
 flowchart LR
-
-A[User pastes clinical note] --> B[Frontend UI<br>HTML / JS]
-B --> C[Flask Backend API<br>/api/summarise]
-C --> D{AI Available?}
-
-D -->|Yes| E[OpenAI API summarisation]
-D -->|No| F[Local fallback summariser]
-
-E --> G[Structured output]
-F --> G
-
-G --> H[Displayed in UI<br>Summary / Issues / Actions / Risks / Follow-up]
+    A[User pastes clinical note] --> B[Frontend UI]
+    B --> C[Flask Backend API: /api/summarise]
+    C --> D{AI available?}
+    D -->|Yes| E[OpenAI API summarisation]
+    D -->|No| F[Local fallback summariser]
+    E --> G[Structured output]
+    F --> G
+    G --> H[Displayed in UI: Summary, Issues, Actions, Risks, Follow-up]
+```
 
 ---
 
