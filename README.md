@@ -221,6 +221,7 @@ The project is intended purely for learning and prototyping.
 Possible next iterations could include:
 
 - Speech-to-text note capture
+- File Upload Feature
 - Specialty-specific summarisation templates
 - Risk flag detection
 - Integration with Electronic Patient Records
