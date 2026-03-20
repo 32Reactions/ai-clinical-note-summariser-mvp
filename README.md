@@ -234,9 +234,9 @@ Possible next iterations could include:
 
 This project was created to explore:
 
-- rapid MVP development
+- Rapid MVP development
 - AI-assisted workflows
-- product thinking in healthcare tooling
-- building and shipping small prototypes
+- Product thinking in healthcare tooling
+- Building and shipping small prototypes
 
 """
